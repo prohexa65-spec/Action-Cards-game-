@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0c17" />
+  <title>Card Clash Arena</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Card Clash Arena home"><span class="brand-icon">✦</span><span>CARD<span class="brand-accent">CLASH</span><small>BATTLE ARENA</small></span></a>
+      <span class="top-tag"><span class="live-dot"></span> LOCAL 2 PLAYER</span>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div><div class="eyebrow"><span>✦</span> THE ULTIMATE CARD SHOWDOWN</div><h1>YOUR CARDS.<br /><em>YOUR BATTLE.</em></h1><p>Pick your team, spin for power, and battle for glory.</p></div>
+        <div class="hero-mark" aria-hidden="true"><span>⚡</span></div>
+      </section>
+
+      <section class="mode-section" aria-label="Game mode">
+        <div class="section-heading"><div><span class="section-kicker">CHOOSE YOUR ARENA</span><h2>Game mode</h2></div><span class="heading-note">SELECT ONE</span></div>
+        <div class="mode-grid">
+          <button class="mode-card active" id="narutoMode" type="button" data-mode="naruto" aria-pressed="true"><span class="mode-icon">火</span><span class="mode-copy"><strong>Naruto</strong><small>SHINOBI BATTLE</small></span><span class="mode-check">✓</span></button>
+          <button class="mode-card football" id="footballMode" type="button" data-mode="football" aria-pressed="false"><span class="mode-icon">⚽</span><span class="mode-copy"><strong>Football</strong><small>PITCH LEGENDS</small></span><span class="mode-check">✓</span></button>
+        </div>
+      </section>
+
+      <section class="panel custom-card-panel" aria-labelledby="customCardHeading">
+        <div class="section-heading"><div><span class="section-kicker">BUILD YOUR DECK</span><h2 id="customCardHeading">Add a card</h2></div><span id="customCardMode" class="heading-note">NARUTO</span></div>
+        <p class="section-description">Take or choose a card photo. Review the name and enter the printed stats before adding it to this mode.</p>
+        <form id="customCardForm" class="custom-card-form">
+          <div><label for="cardPhoto">Card photo</label><input id="cardPhoto" type="file" accept="image/*" /></div>
+          <div><label for="customName">Card name</label><input id="customName" maxlength="40" required placeholder="Enter or review the name" /></div>
+          <div class="custom-stats"><div><label for="customAtk">ATK</label><input id="customAtk" type="number" min="0" max="999" step="1" required placeholder="0–999" /></div><div><label for="customDef">DEF</label><input id="customDef" type="number" min="0" max="999" step="1" required placeholder="0–999" /></div></div>
+          <p id="photoStatus" class="photo-status" role="status">Name detection depends on your browser; you can always enter the name yourself.</p>
+          <button class="outline-button add-card-button" type="submit">+ ADD CARD</button>
+        </form>
+      </section>
+
+      <section id="setup" class="panel setup-panel">
+        <div class="section-heading"><div><span class="section-kicker">01 / GET READY</span><h2>Set up your battle</h2></div><span class="heading-note">2 PLAYERS</span></div>
+        <p class="section-description">Name your players and choose one card each.</p>
+        <div class="setup-grid">
+          <div class="player-setup player-one"><div class="player-label"><span class="player-number">01</span><span>PLAYER ONE</span></div><label for="name1">Player name</label><input id="name1" maxlength="20" value="Player 1" /><label for="card1">Choose a card</label><select id="card1"></select><div id="preview1" class="card-preview"></div></div>
+          <div class="versus-setup">VS</div>
+          <div class="player-setup player-two"><div class="player-label"><span class="player-number">02</span><span>PLAYER TWO</span></div><label for="name2">Player name</label><input id="name2" maxlength="20" value="Player 2" /><label for="card2">Choose a card</label><select id="card2"></select><div id="preview2" class="card-preview"></div></div>
+        </div>
+        <button id="startBtn" class="primary-button" type="button">ENTER THE ARENA <span>→</span></button>
+      </section>
+
+      <section id="arena" class="arena" hidden>
+        <div class="arena-heading"><div><span class="section-kicker">02 / BATTLE TIME</span><h2>The arena <span class="arena-live">● LIVE</span></h2></div><button id="resetBtn" class="text-button" type="button">↻ &nbsp;New match</button></div>
+        <div id="turnBanner" class="turn-banner" aria-live="polite"></div>
+        <div class="battle-grid"><div id="battlePlayer1"></div><div class="battle-vs">VS</div><div id="battlePlayer2"></div></div>
+        <div class="arena-columns">
+          <div class="panel power-panel"><div class="panel-title"><div><span class="section-kicker">TRY YOUR LUCK</span><h3>Power wheel</h3></div><span class="mini-icon">✦</span></div><p>Spin once per turn for a special ability.</p><div class="wheel-area"><div class="wheel-pointer"></div><div id="wheel" class="wheel"><div class="wheel-center">✦<small>POWER</small></div></div></div><div id="powerResult" class="power-result" aria-live="polite">Your power awaits</div><div id="powerLegend" class="power-legend" aria-label="Wheel powers"></div><div class="power-buttons"><button id="spinBtn" class="secondary-button" type="button">✦ &nbsp; SPIN WHEEL</button><button id="usePowerBtn" class="outline-button" type="button" disabled>USE POWER</button></div></div>
+          <div class="panel action-panel"><div class="panel-title"><div><span class="section-kicker">MAKE YOUR MOVE</span><h3>Battle actions</h3></div><span class="mini-icon">⚔</span></div><p>Attack to score, or defend to strengthen your next defense.</p><div class="action-buttons"><button id="attackBtn" class="attack-button" type="button"><span>⚔</span><strong>ATTACK<small>Challenge your opponent</small></strong><b>→</b></button><button id="defendBtn" class="defend-button" type="button"><span>⬡</span><strong>DEFEND<small>+15 DEF on next attack</small></strong><b>→</b></button></div><div class="rules-note"><strong>HOW TO SCORE</strong><br />ATK beats DEF: attacker gets 1 win &amp; 3 points. Otherwise, the defender wins. A tie gives both players 1 point.</div></div>
+        </div>
+        <div class="panel log-panel"><div class="panel-title"><div><span class="section-kicker">THE STORY SO FAR</span><h3>Battle log</h3></div><span class="log-indicator">● MATCH HISTORY</span></div><ol id="battleLog" class="battle-log" aria-live="polite"></ol></div>
+      </section>
+    </main>
+    <footer><span>✦ CARD CLASH ARENA</span><span>MADE FOR EPIC BATTLES</span></footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
